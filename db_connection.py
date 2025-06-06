@@ -1,10 +1,16 @@
-
+# === db_connection.py ===
+# Connects to MongoDB Atlas using pymongo
+# Requires a connection string (Mongo URL) stores securely
 
 import os
 from pymongo import MongoClient
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
-MONGO_URL = "mongodb+srv://SaraTrianaMerchan:bhLwr7Qx6OUvUZF2@cali-node.cmmdoz5.mongodb.net/?retryWrites=true&w=majority&appName=CALI-Node"
+
+MONGO_URL = os.getenv("MONGO_URL")
 
 client = MongoClient(MONGO_URL)
 

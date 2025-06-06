@@ -1,6 +1,13 @@
+# === detect.py ===
+# Detect risk conditions in environmental events and saves alerts to MongoDB
+# Depends on db_connection.py and data inserted in seed_events
+
+
 from db_connection import db
+
 from datetime import datetime
 
+# Thresholds for triggering alerts
 
 collection = db["seed_events"]
 alerts_collection = db["alerts_log"]

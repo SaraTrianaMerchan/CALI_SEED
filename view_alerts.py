@@ -1,3 +1,8 @@
+# === view_alerts.py ===
+# Displays stored alerts from MongoDB in a human-readable format
+# Connects to the alerts_log collection
+
+
 from db_connection import db
 from pprint import pprint 
 

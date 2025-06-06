@@ -1,4 +1,4 @@
-#CALI+ SEED - Smart Environmental Event Detector
+# CALI+ SEED - Smart Environmental Event Detector
 
 CALI + SEED is a lightweight AI-based system designed to detect, predict and alert about
 extreme environmental events in rural and agricultural zones.
@@ -7,7 +7,7 @@ and communities from threaths like DANA storms, heatwaves, hail, and flooding
 
 ---
 
-#Technologies Used
+# Technologies Used#
 
 
 - Python 3
@@ -19,7 +19,7 @@ and communities from threaths like DANA storms, heatwaves, hail, and flooding
 
 ---
 
-#Proyect Structure
+# Proyect Structure
 
 '''
 CALI+_SEED/

@@ -1,3 +1,10 @@
+# === seed_data.py ===
+# Simulares environmental events and inserts them into MongoDB Atlas
+# Requires db_connection.py with secure MONGO_URL loading
+
+
+
+
 from datetime import datetime
 import random
 from db_connection import db
@@ -6,6 +13,8 @@ collection = db["seed_events"]
 
 locations = ["Zaragoza", "Huesca", "Teruel"]
 event_types = ["flood_warning", "hailstrom", "heatwave", "wildfire_risk", "storm_anomaly"]
+
+# Function to generate a fake environmental event
 
 def generate_event():
     return {
@@ -22,6 +31,8 @@ def generate_event():
         "animal_alert": random.choice([True, False]),
         "alert_triggered": False
     }
+
+# Generate and insert 10 sample events
 
 documents = [generate_event() for _ in range(10)]
 result = collection.insert_many(documents)
