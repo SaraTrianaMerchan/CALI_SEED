@@ -71,9 +71,9 @@ CALI+_SEED/
 ## Author 
 
 Made with love and purpose by **Sara Triana Merchán**
-[LinkedIn][https://www.linkedin.com/in/sara-triana-merchan]
-[GitHub][GitHub.com/SaraTrianaMerchan]
-[Devpost][devpost.com/saratrianamerchan]
+LinkedIn[https://www.linkedin.com/in/sara-triana-merchan]
+GitHub[GitHub.com/SaraTrianaMerchan]
+Devpost[devpost.com/saratrianamerchan]
 
 ----
 
