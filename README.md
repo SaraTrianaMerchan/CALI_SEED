@@ -94,25 +94,3 @@ Devpost[devpost.com/saratrianamerchan]
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# CALI_SEED
-# CALI_SEED
