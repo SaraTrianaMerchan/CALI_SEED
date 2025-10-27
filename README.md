@@ -7,7 +7,7 @@ and communities from threaths like DANA storms, heatwaves, hail, and flooding
 
 ---
 
-# Technologies Used#
+# Technologies Used
 
 
 - Python 3
