@@ -39,6 +39,7 @@ function initializeTabs() {
 
             // Load data for the selected tab
             if (tabName === 'dashboard') loadDashboard();
+            if (tabName === 'weather') loadWeather();
             if (tabName === 'events') loadEvents();
             if (tabName === 'alerts') loadAlerts();
         });
@@ -48,6 +49,7 @@ function initializeTabs() {
 // Initialize Filters
 function initializeFilters() {
     // Refresh buttons
+    document.getElementById('refresh-weather').addEventListener('click', loadWeather);
     document.getElementById('refresh-events').addEventListener('click', loadEvents);
     document.getElementById('refresh-alerts').addEventListener('click', loadAlerts);
 
@@ -155,6 +157,109 @@ function renderChart(elementId, data) {
 
         container.appendChild(barDiv);
     });
+}
+
+// Load Weather
+async function loadWeather() {
+    const container = document.getElementById('weather-cards');
+    container.innerHTML = '<div class="loading">Cargando datos del clima...</div>';
+
+    try {
+        const response = await fetch(`${API_URL}/weather`);
+        const data = await response.json();
+
+        if (data.success) {
+            container.innerHTML = '';
+
+            if (data.data.length === 0) {
+                container.innerHTML = '<p class="loading">No hay datos del clima disponibles</p>';
+                return;
+            }
+
+            data.data.forEach(weather => {
+                const card = createWeatherCard(weather);
+                container.appendChild(card);
+            });
+        } else {
+            container.innerHTML = '<div class="error">Error: ' + (data.message || 'No se pudo obtener datos del clima') + '</div>';
+        }
+    } catch (error) {
+        console.error('Error loading weather:', error);
+        container.innerHTML = '<div class="error">Error al cargar datos del clima. Verifica que la API key esté configurada.</div>';
+    }
+}
+
+// Create Weather Card
+function createWeatherCard(weather) {
+    const card = document.createElement('div');
+    card.className = 'weather-card';
+
+    const timestamp = new Date(weather.timestamp).toLocaleString('es-ES');
+    const weatherIcon = getWeatherIcon(weather.weather_main);
+
+    const alertBadges = weather.alerts && weather.alerts.length > 0
+        ? weather.alerts.map(a => `<span class="alert-badge">⚠️ ${a}</span>`).join('')
+        : '';
+
+    card.innerHTML = `
+        <div class="card-header">
+            <div class="card-title">${weatherIcon} ${weather.location}</div>
+            <div class="card-subtitle">${weather.weather_description}</div>
+        </div>
+        <div class="weather-main">
+            <div class="temperature-large">${weather.temperature_c}°C</div>
+            <div class="feels-like">Sensación: ${weather.feels_like_c}°C</div>
+        </div>
+        <div class="weather-details">
+            <div class="weather-item">
+                <span class="weather-label">💧 Humedad:</span>
+                <span class="weather-value">${weather.humidity_percent}%</span>
+            </div>
+            <div class="weather-item">
+                <span class="weather-label">💨 Viento:</span>
+                <span class="weather-value">${weather.wind_speed_kmh} km/h</span>
+            </div>
+            <div class="weather-item">
+                <span class="weather-label">☁️ Nubes:</span>
+                <span class="weather-value">${weather.clouds_percent}%</span>
+            </div>
+            <div class="weather-item">
+                <span class="weather-label">🌧️ Lluvia:</span>
+                <span class="weather-value">${weather.rainfall_mm} mm</span>
+            </div>
+            <div class="weather-item">
+                <span class="weather-label">👁️ Visibilidad:</span>
+                <span class="weather-value">${weather.visibility_km} km</span>
+            </div>
+            <div class="weather-item">
+                <span class="weather-label">🌡️ Presión:</span>
+                <span class="weather-value">${weather.pressure_hpa} hPa</span>
+            </div>
+        </div>
+        ${alertBadges ? `<div class="alert-badges">${alertBadges}</div>` : ''}
+        <div class="weather-footer">
+            <small>🕐 Actualizado: ${timestamp}</small>
+            <small>📡 Fuente: ${weather.source}</small>
+        </div>
+    `;
+
+    return card;
+}
+
+// Get weather icon emoji
+function getWeatherIcon(weatherMain) {
+    const icons = {
+        'Clear': '☀️',
+        'Clouds': '☁️',
+        'Rain': '🌧️',
+        'Drizzle': '🌦️',
+        'Thunderstorm': '⛈️',
+        'Snow': '❄️',
+        'Mist': '🌫️',
+        'Fog': '🌫️',
+        'Haze': '🌫️'
+    };
+    return icons[weatherMain] || '🌤️';
 }
 
 // Load Events
@@ -308,6 +413,7 @@ function showError(containerId) {
 // Auto-refresh every 30 seconds
 setInterval(() => {
     if (currentTab === 'dashboard') loadDashboard();
+    if (currentTab === 'weather') loadWeather();
     if (currentTab === 'events') loadEvents();
     if (currentTab === 'alerts') loadAlerts();
     checkConnection();

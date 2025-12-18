@@ -18,6 +18,14 @@ except Exception as e:
     DB_AVAILABLE = False
     db = None
 
+# Import weather API
+try:
+    from weather_api import get_weather_data, get_all_locations_weather, check_weather_alerts
+    WEATHER_API_AVAILABLE = True
+except Exception as e:
+    print(f"Weather API import error: {e}")
+    WEATHER_API_AVAILABLE = False
+
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
@@ -40,13 +48,16 @@ def serialize_doc(doc):
 def home():
     return jsonify({
         "message": "CALI + SEED API",
-        "version": "1.0",
+        "version": "1.1",
         "status": "online" if DB_AVAILABLE else "database unavailable",
+        "weather_api": "enabled" if WEATHER_API_AVAILABLE else "disabled",
         "endpoints": [
             "/api/events",
             "/api/alerts",
             "/api/stats",
-            "/api/locations"
+            "/api/locations",
+            "/api/weather",
+            "/api/weather/<location>"
         ]
     })
 
@@ -176,6 +187,65 @@ def get_locations():
         return jsonify({
             "success": True,
             "data": locations
+        })
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+@app.route('/api/weather', methods=['GET'])
+def get_all_weather():
+    """Get real-time weather for all locations"""
+    if not WEATHER_API_AVAILABLE:
+        return jsonify({
+            "success": False,
+            "error": "Weather API not available"
+        }), 503
+
+    try:
+        weather_data = get_all_locations_weather()
+
+        # Add alerts for each location
+        for weather in weather_data:
+            weather['alerts'] = check_weather_alerts(weather)
+
+        return jsonify({
+            "success": True,
+            "count": len(weather_data),
+            "data": weather_data
+        })
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+@app.route('/api/weather/<location>', methods=['GET'])
+def get_weather_by_location(location):
+    """Get real-time weather for a specific location"""
+    if not WEATHER_API_AVAILABLE:
+        return jsonify({
+            "success": False,
+            "error": "Weather API not available"
+        }), 503
+
+    try:
+        weather_data = get_weather_data(location)
+
+        if 'error' in weather_data:
+            return jsonify({
+                "success": False,
+                "error": weather_data['error'],
+                "message": weather_data.get('message', '')
+            }), 400
+
+        # Add alerts
+        weather_data['alerts'] = check_weather_alerts(weather_data)
+
+        return jsonify({
+            "success": True,
+            "data": weather_data
         })
     except Exception as e:
         return jsonify({

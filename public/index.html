@@ -15,6 +15,7 @@
 
         <nav class="tabs">
             <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+            <button class="tab-btn" data-tab="weather">Clima en Tiempo Real</button>
             <button class="tab-btn" data-tab="events">Eventos</button>
             <button class="tab-btn" data-tab="alerts">Alertas</button>
         </nav>
@@ -49,6 +50,15 @@
                     <div id="alerts-by-location" class="chart-content"></div>
                 </div>
             </div>
+        </div>
+
+        <!-- Weather Tab -->
+        <div id="weather" class="tab-content">
+            <div class="weather-header">
+                <h2>🌦️ Clima en Tiempo Real - Aragón</h2>
+                <button id="refresh-weather" class="btn-primary">🔄 Actualizar</button>
+            </div>
+            <div id="weather-cards" class="weather-grid"></div>
         </div>
 
         <!-- Events Tab -->
