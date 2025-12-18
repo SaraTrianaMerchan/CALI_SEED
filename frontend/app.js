@@ -1,7 +1,10 @@
 // CALI + SEED Frontend Application
 // Connects to Flask API backend
 
-const API_URL = 'http://localhost:5000/api';
+// Auto-detect API URL based on environment
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:5000/api'
+    : '/api';
 
 // State
 let currentTab = 'dashboard';
@@ -60,7 +63,7 @@ function initializeFilters() {
 // Check API Connection
 async function checkConnection() {
     try {
-        const response = await fetch(`${API_URL}/../`);
+        const response = await fetch(`${API_URL}`);
         if (response.ok) {
             document.getElementById('connection-status').textContent = 'Conectado';
             document.getElementById('connection-status').className = 'status-connected';

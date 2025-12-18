@@ -76,6 +76,18 @@ python3 -m http.server 8000
 
 **📖 See SETUP_FRONTEND.md for detailed instructions**
 
+## Deploy to Vercel (Production)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone)
+
+For production deployment on Vercel:
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Configure environment variable: `MONGO_URL`
+4. Deploy automatically
+
+**📖 See DEPLOY_VERCEL.md for detailed deployment instructions**
 
 ----
 
