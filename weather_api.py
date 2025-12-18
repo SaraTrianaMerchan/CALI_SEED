@@ -7,8 +7,7 @@ import requests
 from datetime import datetime
 
 # OpenWeatherMap API configuration
-WEATHER_API_KEY = os.getenv('OPENWEATHER_API_KEY', '')
-WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/weather'
+WEATHER_API_KEY = os.getenv('AEMET_API_KEY', '')
 
 # Locations coordinates (Aragon, Spain)
 LOCATIONS = {
@@ -29,8 +28,8 @@ def get_weather_data(location='Zaragoza'):
     """
     if not WEATHER_API_KEY:
         return {
-            'error': 'OPENWEATHER_API_KEY not configured',
-            'message': 'Please add your OpenWeatherMap API key to environment variables'
+            'error': 'AEMET_API_KEY not configured',
+            'message': 'Please add your Aemet API key to environment variables'
         }
 
     if location not in LOCATIONS:
@@ -135,7 +134,7 @@ def check_weather_alerts(weather_data):
 
 if __name__ == '__main__':
     # Test the API
-    print("\n🌤️ Testing OpenWeatherMap Integration\n")
+    print("\n🌤️ Testing Aemet Integration\n")
 
     for location in LOCATIONS.keys():
         print(f"\n📍 {location}:")
