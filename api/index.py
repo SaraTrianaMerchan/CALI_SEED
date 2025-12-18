@@ -183,7 +183,8 @@ def get_locations():
             "error": str(e)
         }), 500
 
-# Vercel handler
-def handler(request):
-    with app.request_context(request.environ):
-        return app.full_dispatch_request()
+# Export app for Vercel
+# Vercel will automatically use this Flask app
+if __name__ != '__main__':
+    # Production mode (Vercel)
+    pass

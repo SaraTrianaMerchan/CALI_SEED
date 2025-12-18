@@ -13,6 +13,7 @@ detect.py
 view_alerts.py
 visualize_data.py
 grafica_temperatura.png
-*.png
 CALI + SEED.png
 recursos.txt
+frontend/
+app.py
