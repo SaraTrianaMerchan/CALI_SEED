@@ -331,3 +331,109 @@ footer {
     color: #f5576c;
     font-size: 1.1em;
 }
+
+/* Weather Tab */
+.weather-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.weather-header h2 {
+    color: #333;
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.weather-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 25px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.weather-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.weather-card .card-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.weather-card .card-title {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.weather-card .card-subtitle {
+    font-size: 1.1em;
+    opacity: 0.9;
+    text-transform: capitalize;
+}
+
+.weather-main {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.temperature-large {
+    font-size: 4em;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.feels-like {
+    font-size: 1.1em;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+
+.weather-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.weather-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+.weather-label {
+    font-weight: 600;
+}
+
+.weather-value {
+    font-weight: bold;
+}
+
+.weather-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+.weather-card .alert-badges {
+    margin-top: 15px;
+}
