@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALI + SEED - Environmental Monitor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌱 CALI + SEED</h1>
+            <p class="subtitle">Sistema de Detección de Eventos Ambientales</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+            <button class="tab-btn" data-tab="events">Eventos</button>
+            <button class="tab-btn" data-tab="alerts">Alertas</button>
+        </nav>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value" id="total-events">-</div>
+                    <div class="stat-label">Total Eventos</div>
+                </div>
+                <div class="stat-card alert">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-value" id="total-alerts">-</div>
+                    <div class="stat-label">Total Alertas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📍</div>
+                    <div class="stat-value" id="total-locations">-</div>
+                    <div class="stat-label">Ubicaciones</div>
+                </div>
+            </div>
+
+            <div class="charts">
+                <div class="chart-card">
+                    <h3>Eventos por Ubicación</h3>
+                    <div id="events-by-location" class="chart-content"></div>
+                </div>
+                <div class="chart-card">
+                    <h3>Alertas por Ubicación</h3>
+                    <div id="alerts-by-location" class="chart-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events Tab -->
+        <div id="events" class="tab-content">
+            <div class="filters">
+                <select id="location-filter" class="filter-select">
+                    <option value="">Todas las ubicaciones</option>
+                </select>
+                <select id="event-type-filter" class="filter-select">
+                    <option value="">Todos los tipos</option>
+                </select>
+                <button id="refresh-events" class="btn-primary">🔄 Actualizar</button>
+            </div>
+            <div id="events-list" class="data-list"></div>
+        </div>
+
+        <!-- Alerts Tab -->
+        <div id="alerts" class="tab-content">
+            <div class="filters">
+                <select id="alert-location-filter" class="filter-select">
+                    <option value="">Todas las ubicaciones</option>
+                </select>
+                <button id="refresh-alerts" class="btn-primary">🔄 Actualizar</button>
+            </div>
+            <div id="alerts-list" class="data-list"></div>
+        </div>
+
+        <footer>
+            <p>Estado de conexión: <span id="connection-status" class="status-disconnected">Desconectado</span></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
