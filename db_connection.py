@@ -5,15 +5,21 @@
 import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
+from pymongo.errors import ConnectionFailure
+
 
 load_dotenv()
 
 
-
 MONGO_URL = os.getenv("MONGO_URL")
 
-client = MongoClient(MONGO_URL)
+try:
 
+    client = MongoClient(MONGO_URL, serverSelectionTimeoutMS=5000)
+    client.admin.command("ping")
+    db = client["cali_db"]
+    print("Mongo conectado")
 
-db = client["cali_db"]
-     
+except ConnectionFailure as e:
+    print(" Error al conectar a MongoDB")
+    print(e)
